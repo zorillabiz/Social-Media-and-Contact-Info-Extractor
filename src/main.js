@@ -21,6 +21,8 @@ Apify.main(async () => {
         maxRequests,
         maxRequestsPerStartUrl,
         maxRetries,
+        navigationTimeoutSecs,
+        waitForBodyTimeoutSecs,
     } = input;
 
     // Object with startUrls as keys and counters as values
@@ -76,7 +78,7 @@ Apify.main(async () => {
 
             // Wait for body tag to load
             await page.waitForSelector('body', {
-                timeout: WAIT_FOR_BODY_SECS * 1000,
+                timeout: waitForBodyTimeoutSecs * 1000,
             });
 
             // Set enqueue options
@@ -131,14 +133,14 @@ Apify.main(async () => {
             await Apify.pushData(result);
         },
         handleFailedRequestFunction: async ({ request }) => {
-            log.error(`Request ${request.url} failed 4 times`);
+            log.error(`Request ${request.url} failed 2 times`);
         },
         gotoFunction: async ({ page, request }) => {
             // Block resources such as images and CSS files, to increase crawling speed
             await Apify.utils.puppeteer.blockRequests(page);
 
             return page.goto(request.url, {
-                timeout: PAGE_GOTO_TIMEOUT_SECS * 1000,
+                timeout: navigationTimeoutSecs * 1000,
                 waitUntil: 'domcontentloaded',
             });
         },
