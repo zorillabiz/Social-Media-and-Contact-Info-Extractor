@@ -31,7 +31,7 @@
           "prefill": 1
       },
       "navigationTimeoutSecs": {
-          "title": "Navigation timeout in seconds",
+          "title": "Navigation timeout",
           "type": "integer",
           "description": "Timeout in which page navigation needs to finish, in seconds.",
           "minimum": 0,
@@ -39,7 +39,7 @@
           "prefill": 60
       },
       "waitForBodyTimeoutSecs": {
-          "title": "Wait for body timeout in seconds",
+          "title": "Wait for body timeout",
           "type": "integer",
           "description": "Timeout in which body selector needs to load, in seconds.",
           "minimum": 0,
