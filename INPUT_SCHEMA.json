@@ -35,7 +35,7 @@
           "type": "integer",
           "description": "Timeout in which page navigation needs to finish, in seconds.",
           "minimum": 0,
-          "unit": "seconds",
+          "unit": "second",
           "prefill": 60
       },
       "waitForBodyTimeoutSecs": {
@@ -43,7 +43,7 @@
           "type": "integer",
           "description": "Timeout in which body selector needs to load, in seconds.",
           "minimum": 0,
-          "unit": "seconds",
+          "unit": "second",
           "prefill": 60
      },
       "maxDepth": {
