@@ -20,6 +20,7 @@ Apify.main(async () => {
         // These are total (kept naming for backward compatibillity)
         maxRequests,
         maxRequestsPerStartUrl,
+        maxRetries,
     } = input;
 
     // Object with startUrls as keys and counters as values
