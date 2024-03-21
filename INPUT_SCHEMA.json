@@ -23,6 +23,13 @@
           "description": "The maximum number of pages that will be enqueued from each start URL you provide.",
           "minimum": 1
       },
+      "maxRetries": {
+          "title": "Maximum retries",
+          "type": "integer",
+          "description": "The maximum number of retries if the crawler fails.",
+          "minimum": 0,
+          "prefill": 1
+      },
       "maxDepth": {
           "title": "Maximum link depth",
           "type": "integer",
