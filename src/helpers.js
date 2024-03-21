@@ -100,7 +100,6 @@ module.exports = {
     },
 
     crawlFrames: async (page) => {
-        /*
         const socialMedia = [
             'emails',
             'phones',
@@ -113,10 +112,6 @@ module.exports = {
             'tiktoks',
             'pinterests',
             'discords'
-        ];
-        */
-        const socialMedia = [
-            'emails'
         ];
         const socialHandles = {};
         
