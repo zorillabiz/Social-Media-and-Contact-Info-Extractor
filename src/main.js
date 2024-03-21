@@ -4,9 +4,6 @@ const helpers = require('./helpers');
 
 const { log } = Apify.utils;
 
-const PAGE_GOTO_TIMEOUT_SECS = 30;
-const WAIT_FOR_BODY_SECS = 30;
-
 Apify.main(async () => {
     const input = await Apify.getValue('INPUT');
     if (!input) throw new Error('There is no input!');
