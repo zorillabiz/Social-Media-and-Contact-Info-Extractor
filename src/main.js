@@ -4,7 +4,7 @@ const helpers = require('./helpers');
 
 const { log } = Apify.utils;
 
-const PAGE_GOTO_TIMEOUT_SECS = 50;
+const PAGE_GOTO_TIMEOUT_SECS = 60;
 const WAIT_FOR_BODY_SECS = 60;
 
 Apify.main(async () => {
