@@ -14,6 +14,7 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
 
     const filteredLinks = allLinks.filter((url) => (sameDomain ? module.exports.getDomain(url) === urlDomain : true));
     log.info(`Found ${filteredLinks.length} links on ${page.url()}`);
+    console.log(filteredLinks);
     return filteredLinks;
 }
 
