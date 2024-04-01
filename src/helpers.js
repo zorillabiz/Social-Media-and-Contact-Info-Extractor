@@ -10,7 +10,14 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     /* istanbul ignore next */
     const allLinks = await page.$$eval(selector, (linkEls) => linkEls
         .map((link) => link.href)
-        .filter((href) => !!href));
+        .filter((href) => !!href))
+        .sort((a, b) => {
+            const hasSubstringA = a.includes('Contact');
+            const hasSubstringB = b.includes('Contact');
+
+            // Prioritize strings with the substring
+            return hasSubstringB - hasSubstringA;
+        });
 
     const filteredLinks = allLinks.filter((url) => (sameDomain ? module.exports.getDomain(url) === urlDomain : true));
     log.info(`Found ${filteredLinks.length} links on ${page.url()}`);
