@@ -82,7 +82,7 @@ Apify.main(async () => {
             const linksToEnqueueOptions = {
                 page,
                 requestQueue,
-                selector: 'a:contains(Contact), a',
+                selector: 'a:contains(Contact)',
                 sameDomain,
                 urlDomain: helpers.getDomain(request.url),
                 startUrl: request.userData.startUrl,
