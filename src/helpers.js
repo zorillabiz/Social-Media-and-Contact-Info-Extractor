@@ -12,8 +12,8 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
         .map((link) => link.href)
         .filter((href) => !!href)
         .sort((a, b) => {
-            const hasSubstringA = a.includes('Contact');
-            const hasSubstringB = b.includes('Contact');
+            const hasSubstringA = a.includes('contact');
+            const hasSubstringB = b.includes('contact');
 
             // Prioritize strings with the substring
             return hasSubstringB - hasSubstringA;
