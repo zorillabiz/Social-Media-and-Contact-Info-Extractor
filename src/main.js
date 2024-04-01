@@ -129,18 +129,16 @@ Apify.main(async () => {
             // Store results
             await Apify.pushData(result);
         },
+        navigationTimeoutSecs: navigationTimeoutSecs,
         handleFailedRequestFunction: async ({ request }) => {
             log.error(`Request ${request.url} failed 2 times`);
         },
-        gotoFunction: async ({ page, request }) => {
-            // Block resources such as images and CSS files, to increase crawling speed
-            await Apify.utils.puppeteer.blockRequests(page);
-
-            return page.goto(request.url, {
-                timeout: navigationTimeoutSecs * 1000,
-                waitUntil: 'domcontentloaded',
-            });
-        },
+        preNavigationHooks: [
+            async ({ crawlingContext }) => {
+                const { page } = crawlingContext;
+                await Apify.utils.puppeteer.blockRequests(page);
+            },
+        ],
     };
 
     // Limit requests
