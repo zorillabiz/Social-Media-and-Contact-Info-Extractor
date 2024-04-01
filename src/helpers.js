@@ -9,6 +9,9 @@ const { Request } = Apify;
 async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     /* istanbul ignore next */
     const allLinks = await page.$$eval(selector, (linkEls) => linkEls
+        .sort((a, b) => {
+            return b.includes('Contact') - a.includes('Contact');
+        })
         .map((link) => link.href)
         .filter((href) => !!href));
 
