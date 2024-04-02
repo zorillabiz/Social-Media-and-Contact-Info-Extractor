@@ -12,6 +12,8 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
         .map((link) => link.href)
         .filter((href) => !!href)
         .sort((a, b) => {
+            log.info('a:' + /(contact|kontakt)/.test(a));
+            log.info('b:' + /(contact|kontakt)/.test(b));
             return /(contact|kontakt)/.test(a) - /(contact|kontakt)/.test(b);
             //return b.includes('contact') - a.includes('contact');
         }));
