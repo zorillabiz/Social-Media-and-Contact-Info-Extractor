@@ -9,7 +9,13 @@ const { Request } = Apify;
 async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     /* istanbul ignore next */
     const regex = /(contact|kontakt)/;
-    const allLinks = await page.$$(selector);
+    
+    const allLinkEls = await page.$$(selector);
+    const allLinks = allLinkEls
+        .sort((a, b) => {
+            return /(contact|kontakt)/i.test(b.textContent) - /(contact|kontakt)/i.test(a.textContent);
+        })
+        .map((link) => link.href);
 
     console.log(allLinks);
 
