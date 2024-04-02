@@ -14,11 +14,7 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
             return /(contact|kontakt)/i.test(b.textContent) - /(contact|kontakt)/i.test(a.textContent);
         })
         .map((link) => link.href)
-        .filter((href) => !!href)
-        .sort((a, b) => {
-            return /(contact|kontakt)/i.test(b) - /(contact|kontakt)/i.test(a);
-            //return b.includes('contact') - a.includes('contact');
-        }));
+        .filter((href) => !!href));
 
     const filteredLinks = allLinks.filter((url) => (sameDomain ? module.exports.getDomain(url) === urlDomain : true));
     log.info(`Found ${filteredLinks.length} links on ${page.url()}`);
