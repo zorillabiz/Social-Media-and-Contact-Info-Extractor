@@ -9,12 +9,10 @@ const { Request } = Apify;
 async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     /* istanbul ignore next */
     const regex = /(contact|kontakt)/;
-    const allLinks = await page.$$eval(selector, (linkEls) => linkEls
-        .sort((a, b) => {
-            return /(contact|kontakt)/i.test(b.textContent) - /(contact|kontakt)/i.test(a.textContent);
-        })
-        .map((link) => link.href)
-        .filter((href) => !!href));
+    const allLinks = await page.$$eval(selector, (linkEls) => linkEls);
+
+    console.log(allLinks);
+
 
     const filteredLinks = allLinks.filter((url) => (sameDomain ? module.exports.getDomain(url) === urlDomain : true));
     log.info(`Found ${filteredLinks.length} links on ${page.url()}`);
