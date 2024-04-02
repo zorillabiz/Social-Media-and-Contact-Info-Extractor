@@ -11,12 +11,12 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     const regex = /(contact|kontakt)/;
     const allLinks = await page.$$eval(selector, (linkEls) => linkEls
         .sort((a, b) => {
-            return regex.test(b.textContent) - regex.test(a.textContent);
+            return /(contact|kontakt)/i.test(b.textContent) - /(contact|kontakt)/i.test(a.textContent);
         })
         .map((link) => link.href)
         .filter((href) => !!href)
         .sort((a, b) => {
-            return regex.test(b) - regex.test(a);
+            return /(contact|kontakt)/i.test(b) - /(contact|kontakt)/i.test(a);
             //return b.includes('contact') - a.includes('contact');
         }));
 
