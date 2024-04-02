@@ -12,7 +12,8 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
         .map((link) => link.href)
         .filter((href) => !!href)
         .sort((a, b) => {
-            return b.includes('contact') - a.includes('contact');
+            return /(contact|kontakt)/.test(a) - /(contact|kontakt)/.test(b);
+            //return b.includes('contact') - a.includes('contact');
         }));
 
     const filteredLinks = allLinks.filter((url) => (sameDomain ? module.exports.getDomain(url) === urlDomain : true));
