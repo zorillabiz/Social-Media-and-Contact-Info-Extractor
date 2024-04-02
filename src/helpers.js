@@ -12,9 +12,7 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
         .map((link) => link.href)
         .filter((href) => !!href)
         .sort((a, b) => {
-            console.log('a:' + /(contact|kontakt)/.test(a));
-            console.log('b:' + /(contact|kontakt)/.test(b));
-            return /(contact|kontakt)/.test(a) - /(contact|kontakt)/.test(b);
+            return /(contact|kontakt)/.test(b) - /(contact|kontakt)/.test(a);
             //return b.includes('contact') - a.includes('contact');
         }));
 
