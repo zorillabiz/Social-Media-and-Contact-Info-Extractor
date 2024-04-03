@@ -7,14 +7,14 @@ const { log } = Apify.utils;
 const { Request } = Apify;
 
 async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
-    const regex = new RegExp('(contact|kontakt)', 'i');
-    //const regex = /(contact|kontakt)/;
+    //const regex = new RegExp('(contact|kontakt)', 'i');
+    const regex ='(contact|kontakt)';
     
     /* istanbul ignore next */
     const allLinks = await page.$$eval(selector, (linkEls, regex) => linkEls
         .sort((a, b) => {
-            //let regex = new RegExp('(contact|kontakt)', 'i');
-            return regex.test(b.textContent) - regex.test(a.textContent);
+            let regexo = new RegExp(regex, 'i');
+            return regexo.test(b.textContent) - regexo.test(a.textContent);
         })
         .map((link) => link.href)
         .filter((href) => !!href), regex);
