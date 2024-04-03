@@ -10,11 +10,10 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     /* istanbul ignore next */
     const regex = /(contact|kontakt)/;
     
-    const allLinkEls = await page.$$eval(selector, (linkEls) => {
-        return linkEls;
-    });
+    const allLinks = await page.$$eval(selector, (linkEls) => linkEls
+        .map((link) => link.href));
 
-    console.log(allLinkEls);
+    console.log(allLinks);
 
     const filteredLinks = allLinks.filter((url) => (sameDomain ? module.exports.getDomain(url) === urlDomain : true));
     log.info(`Found ${filteredLinks.length} links on ${page.url()}`);
