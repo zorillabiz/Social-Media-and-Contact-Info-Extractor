@@ -10,10 +10,7 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     /* istanbul ignore next */
     const regex = /(contact|kontakt)/;
     
-    const allLinks = await page.$$eval(selector, (linkEls) => linkEls
-        .map(function(link) {
-            return typeof link;
-        }));
+    const allLinks = await page.$$eval(selector, (linkEls) => Array.from(linkEls));
 
     console.log(allLinks);
 
