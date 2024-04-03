@@ -8,16 +8,16 @@ const { Request } = Apify;
 
 async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     //const regex = new RegExp('(contact|kontakt)', 'i');
-    const sortRegEx ='(contact|kontakt)';
+    const regexString ='(contact|kontakt)';
     
     /* istanbul ignore next */
-    const allLinks = await page.$$eval(selector, (linkEls, sortRegEx) => linkEls
+    const allLinks = await page.$$eval(selector, (linkEls, regexString) => linkEls
         .sort((a, b) => {
-            let regEx = new RegExp(sortRegEx, 'i');
-            return regEx.test(b.textContent) - regEx.test(a.textContent);
+            const regex = new RegExp(regexString, 'i');
+            return regex.test(b.textContent) - regex.test(a.textContent);
         })
         .map((link) => link.href)
-        .filter((href) => !!href), sortRegEx);
+        .filter((href) => !!href), regexString);
 
     console.log(allLinks);
 
