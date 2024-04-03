@@ -12,7 +12,7 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     
     const allLinks = await page.$$eval(selector, (linkEls) => linkEls
         .map(function(link) {
-            return link.href;
+            return link;
         }));
 
     console.log(allLinks);
