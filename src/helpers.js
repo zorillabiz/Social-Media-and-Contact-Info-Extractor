@@ -13,8 +13,8 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     /* istanbul ignore next */
     const allLinks = await page.$$eval(selector, (linkEls, regex) => linkEls
         .sort((a, b) => {
-            let regexo = new RegExp(regex, 'i');
-            return regexo.test(b.textContent) - regexo.test(a.textContent);
+            let regex = new RegExp(regex, 'i');
+            return regex.test(b.textContent) - regex.test(a.textContent);
         })
         .map((link) => link.href)
         .filter((href) => !!href), regex);
