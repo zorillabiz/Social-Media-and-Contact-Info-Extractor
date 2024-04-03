@@ -11,7 +11,9 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     const regex = /(contact|kontakt)/;
     
     const allLinks = await page.$$eval(selector, (linkEls) => linkEls
-        .map((link) => link));
+        .map(function(link) {
+            return link.href;
+        }));
 
     console.log(allLinks);
 
