@@ -7,7 +7,6 @@ const { log } = Apify.utils;
 const { Request } = Apify;
 
 async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
-    //const regex = new RegExp('(contact|kontakt)', 'i');
     const regexString ='(contact|kontakt|about)';
     
     /* istanbul ignore next */
@@ -18,8 +17,6 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
         })
         .map((link) => link.href)
         .filter((href) => !!href), regexString);
-
-    console.log(allLinks);
 
     const filteredLinks = allLinks.filter((url) => (sameDomain ? module.exports.getDomain(url) === urlDomain : true));
     log.info(`Found ${filteredLinks.length} links on ${page.url()}`);
