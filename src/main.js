@@ -71,13 +71,13 @@ Apify.main(async () => {
             useFingerprints: true,
         },
         handlePageFunction: async ({ page, request }) => {
-            log.info(`Processing ${request.url}`);
-
             const blacklist = ['dan.com', 'sedo.com'];
             if (blacklist.includes(helpers.getDomain(page.url()))) {
                 log.info(`Skipping ${request.url} (domain blacklisted)`);
                 return;
             }
+
+            log.info(`Processing ${request.url}`);
 
             // Wait for body tag to load
             await page.waitForSelector('body', {
