@@ -72,7 +72,13 @@ Apify.main(async () => {
         },
         handlePageFunction: async ({ page, request }) => {
             log.info(`Processing ${request.url}`);
-            log.info(JSON.stringify(page));
+
+            const blacklist = ['dan.com', 'sedo.com'];
+            if (blacklist.includes(helpers.getDomain(request.url))) {
+                log.info(`Skipping ${request.url} (domain blacklisted)`);
+                await request.abort();
+                return;
+            }
 
             // Wait for body tag to load
             await page.waitForSelector('body', {
