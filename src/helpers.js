@@ -11,12 +11,12 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
     
     /* istanbul ignore next */
     const allLinks = await page.$$eval(selector, (elements, args) => elements
-        .filter((link) => !!link.href && link.href != '#')
+        .filter((link) => !!link.href && link.href != args.url)
         .sort((a, b) => {
             const regex = new RegExp(args.regex, 'i');
             return regex.test(b.href) + regex.test(b.textContent) - regex.test(a.href) - regex.test(b.textContent);
         })
-        .map((link) => link.href), { regex: regexString });
+        .map((link) => link.href), { url: page.url(), regex: regexString });
 
     const filteredLinks = allLinks.filter((url) => (sameDomain ? module.exports.getDomain(url) === urlDomain : true));
     log.info(`Found ${filteredLinks.length} links on ${page.url()}`);
