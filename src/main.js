@@ -74,7 +74,9 @@ Apify.main(async () => {
             log.info(`Processing ${request.url}`);
 
             const blacklist = ['dan.com', 'sedo.com'];
+            log.info(helpers.getDomain(request.url));
             if (blacklist.includes(helpers.getDomain(request.url))) {
+                log.info('Test');
                 log.info(`Skipping ${request.url} (domain blacklisted)`);
                 await request.abort();
                 return;
