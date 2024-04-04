@@ -72,6 +72,7 @@ Apify.main(async () => {
         },
         handlePageFunction: async ({ page, request }) => {
             log.info(`Processing ${request.url}`);
+            log.info(page);
 
             // Wait for body tag to load
             await page.waitForSelector('body', {
