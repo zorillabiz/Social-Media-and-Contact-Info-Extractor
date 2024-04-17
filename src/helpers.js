@@ -14,7 +14,7 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
         .filter((link) => !!link.href && link.href != args.url && !link.href.startsWith(args.url + '#'))
         .sort((a, b) => {
             const regex = new RegExp(args.regex, 'i');
-            return regex.test(b.href) + regex.test(b.textContent) - regex.test(a.href) - regex.test(b.textContent);
+            return regex.test(b.href) + regex.test(b.textContent) - regex.test(a.href) - regex.test(a.textContent);
         })
         .map((link) => link.href), { url: page.url(), regex: regexString });
 
