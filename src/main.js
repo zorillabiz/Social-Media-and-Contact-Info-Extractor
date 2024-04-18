@@ -84,7 +84,7 @@ Apify.main(async () => {
                 timeout: waitForBodyTimeoutSecs * 1000,
             });
 
-            if (await page.$('.--dan-powered')) {
+            if (await page.$('.--dan-powered, .buynow-lander')) {
                 log.info(`Skipping ${request.url} (content blacklisted)`);
                 return;
             }
