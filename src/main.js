@@ -79,7 +79,7 @@ Apify.main(async () => {
                 return;
             }
 
-            if (await page.$('.--dan-powered, .buynow-lander')) {
+            if (await page.$('.--dan-powered')) {
                 log.info(`Skipping ${request.url} (content blacklisted)`);
                 return;
             }
