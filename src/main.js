@@ -79,15 +79,15 @@ Apify.main(async () => {
                 return;
             }
 
-            if (await page.$('.--dan-powered')) {
-                log.info(`Skipping ${request.url} (content blacklisted)`);
-                return;
-            }
-
             // Wait for body tag to load
             await page.waitForSelector('body', {
                 timeout: waitForBodyTimeoutSecs * 1000,
             });
+
+            if (await page.$('.--dan-powered')) {
+                log.info(`Skipping ${request.url} (content blacklisted)`);
+                return;
+            }
 
             // Set enqueue options
             const linksToEnqueueOptions = {
