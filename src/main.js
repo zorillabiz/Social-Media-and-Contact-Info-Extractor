@@ -71,18 +71,24 @@ Apify.main(async () => {
             useFingerprints: true,
         },
         handlePageFunction: async ({ page, request }) => {
-            const blacklist = ['dan.com', 'sedo.com'];
+            log.info(`Processing ${request.url}`);
+
+            const blacklist = ['dan.com', 'afternic.com', 'sedo.com'];
             if (blacklist.includes(helpers.getDomain(page.url()))) {
                 log.info(`Skipping ${request.url} (domain blacklisted)`);
                 return;
             }
 
-            log.info(`Processing ${request.url}`);
-
             // Wait for body tag to load
             await page.waitForSelector('body', {
                 timeout: waitForBodyTimeoutSecs * 1000,
             });
+
+            const elementCount = await page.$$eval('.--dan-powered', (elements) => elements.length);
+            if (elementCount > 0) {
+                log.info(`Skipping ${request.url} (content blacklisted)`);
+                return;
+            }
 
             // Set enqueue options
             const linksToEnqueueOptions = {
