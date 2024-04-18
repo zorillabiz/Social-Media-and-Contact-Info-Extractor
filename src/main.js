@@ -79,8 +79,7 @@ Apify.main(async () => {
                 return;
             }
 
-            const elementCount = await page.$$eval('.--dan-powered', (elements) => elements.length);
-            if (elementCount > 0) {
+            if (await page.$$eval('.--dan-powered, .buynow-lander', (elements) => elements.length) > 0) {
                 log.info(`Skipping ${request.url} (content blacklisted)`);
                 return;
             }
