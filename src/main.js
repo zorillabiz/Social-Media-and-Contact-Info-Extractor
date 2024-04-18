@@ -73,16 +73,16 @@ Apify.main(async () => {
         handlePageFunction: async ({ page, request }) => {
             log.info(`Processing ${request.url}`);
 
+            // Wait for body tag to load
+            await page.waitForSelector('body', {
+                timeout: waitForBodyTimeoutSecs * 1000,
+            });
+
             const blacklist = ['dan.com', 'afternic.com', 'sedo.com'];
             if (blacklist.includes(helpers.getDomain(page.url()))) {
                 log.info(`Skipping ${request.url} (domain blacklisted)`);
                 return;
             }
-
-            // Wait for body tag to load
-            await page.waitForSelector('body', {
-                timeout: waitForBodyTimeoutSecs * 1000,
-            });
 
             if (await page.$('.--dan-powered, .buynow-lander, #gdLogo')) {
                 log.info(`Skipping ${request.url} (content blacklisted)`);
