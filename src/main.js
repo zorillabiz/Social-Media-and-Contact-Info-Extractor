@@ -84,7 +84,7 @@ Apify.main(async () => {
                 return;
             }
 
-            if (await page.$('.--dan-powered, .buynow-lander, #gdLogo')) {
+            if (await page.$('.--dan-powered, .buynow-lander')) {
                 log.info(`Skipping ${request.url} (content blacklisted)`);
                 return;
             }
