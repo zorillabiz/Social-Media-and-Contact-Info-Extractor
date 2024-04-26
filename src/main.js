@@ -156,6 +156,7 @@ Apify.main(async () => {
 
     // Limit retries
     if (maxRetries) crawlerOptions.maxRequestRetries = maxRetries;
+    crawlerOptions.ignoreHTTPs = ['image'];
 
     // Create crawler
     const crawler = new Apify.PuppeteerCrawler(crawlerOptions);
