@@ -75,8 +75,9 @@ Apify.main(async () => {
 
             await page.setRequestInterception(true);
             page.on('request', (req) => {
+                console.log(req.resourceType());
                 if (req.resourceType() === 'image') {
-                    console.log('Blocking image request:', req.url());
+                    //console.log('Blocking image request:', req.url());
                     req.abort();
                 } else {
                     req.continue();
