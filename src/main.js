@@ -73,17 +73,6 @@ Apify.main(async () => {
         handlePageFunction: async ({ page, request }) => {
             log.info(`Processing ${request.url}`);
 
-            await page.setRequestInterception(true);
-            page.on('request', (req) => {
-                console.log(req.url() + ' // ' + req.resourceType());
-                if (req.resourceType() === 'image') {
-                    //console.log('Blocking image request:', req.url());
-                    req.abort();
-                } else {
-                    req.continue();
-                }
-            });
-
             // Wait for body tag to load
             await page.waitForSelector('body', {
                 timeout: waitForBodyTimeoutSecs * 1000,
