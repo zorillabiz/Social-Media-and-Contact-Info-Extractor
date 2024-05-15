@@ -73,10 +73,14 @@ Apify.main(async () => {
         handlePageFunction: async ({ page, request, response }) => {
             log.info(`Processing ${request.url}`);
 
-            if (response.status() != 200) {
-                //throw new Error(`Error status code ${response.status()}`);
-                log.info(`Skipping ${request.url} (${response.status()} status code)`);
-                return;
+            if (response) {
+                if (response.status() != 200) {
+                    //throw new Error(`Error status code ${response.status()}`);
+                    log.info(`Skipping ${request.url} (${response.status()} status code)`);
+                    return;
+                }
+            } else {
+                log.info(response);
             }
 
             // Wait for body tag to load
