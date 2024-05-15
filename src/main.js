@@ -18,8 +18,8 @@ Apify.main(async () => {
         maxRequests,
         maxRequestsPerStartUrl,
         maxRetries,
+        handlePageTimeoutSecs,
         navigationTimeoutSecs,
-        waitForBodyTimeoutSecs,
     } = input;
 
     // Object with startUrls as keys and counters as values
@@ -73,6 +73,9 @@ Apify.main(async () => {
         handlePageFunction: async ({ page, request, response }) => {
             log.info(`Processing ${request.url}`);
 
+            // Wait for body tag to load
+            await page.waitForSelector('body');
+
             if (response) {
                 if (response.status() != 200) {
                     //throw new Error(`Error status code ${response.status()}`);
@@ -82,11 +85,6 @@ Apify.main(async () => {
             } else {
                 log.info(response);
             }
-
-            // Wait for body tag to load
-            await page.waitForSelector('body', {
-                timeout: waitForBodyTimeoutSecs * 1000,
-            });
 
             const blacklist = ['dan.com', 'afternic.com', 'godaddy.com', 'sedo.com', 'buydomains.com', 'dovendi.com', 'aftermarket.pl', 'sawbrokers.com'];
             if (blacklist.includes(helpers.getDomain(page.url()))) {
@@ -150,7 +148,6 @@ Apify.main(async () => {
             // Store results
             await Apify.pushData(result);
         },
-        navigationTimeoutSecs: navigationTimeoutSecs,
         handleFailedRequestFunction: async ({ request }) => {
             log.error(`Request ${request.url} failed 2 times`);
         },
@@ -159,6 +156,8 @@ Apify.main(async () => {
                 await Apify.utils.puppeteer.blockRequests(page);
             },
         ],
+        handlePageTimeoutSecs,
+        navigationTimeoutSecs,
     };
 
     // Limit requests
