@@ -83,7 +83,8 @@ Apify.main(async () => {
                     return;
                 }
             } else {
-                log.info(response);
+                log.info(`Skipping ${request.url} (no response)`);
+                return;
             }
 
             const blacklist = ['dan.com', 'afternic.com', 'godaddy.com', 'sedo.com', 'buydomains.com', 'dovendi.com', 'aftermarket.pl', 'sawbrokers.com'];
