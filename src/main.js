@@ -66,6 +66,9 @@ Apify.main(async () => {
         proxyConfiguration,
         launchContext: {
             useIncognitoPages: true,
+            launchOptions: {
+                args: ['--ignore-certificate-errors'],
+            },
         },
         browserPoolOptions: {
             useFingerprints: true,
