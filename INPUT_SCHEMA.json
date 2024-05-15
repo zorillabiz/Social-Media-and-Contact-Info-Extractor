@@ -39,18 +39,18 @@
           "minimum": 0,
           "prefill": 1
       },
-      "navigationTimeoutSecs": {
-          "title": "Navigation timeout",
+      "handlePageTimeoutSecs": {
+          "title": "Page handling timeout",
           "type": "integer",
-          "description": "Timeout in which page navigation needs to finish, in seconds.",
+          "description": "Timeout in which the page handling function needs to finish, in seconds.",
           "minimum": 0,
           "unit": "second",
           "prefill": 60
       },
-      "waitForBodyTimeoutSecs": {
-          "title": "Wait for body timeout",
+      "navigationTimeoutSecs": {
+          "title": "Navigation timeout",
           "type": "integer",
-          "description": "Timeout in which body selector needs to load, in seconds.",
+          "description": "Timeout in which page navigation needs to finish, in seconds.",
           "minimum": 0,
           "unit": "second",
           "prefill": 60
