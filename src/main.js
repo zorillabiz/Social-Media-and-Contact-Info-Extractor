@@ -70,8 +70,14 @@ Apify.main(async () => {
         browserPoolOptions: {
             useFingerprints: true,
         },
-        handlePageFunction: async ({ page, request }) => {
+        handlePageFunction: async ({ page, request, response }) => {
             log.info(`Processing ${request.url}`);
+
+            if (response.status() != 200) {
+                //throw new Error(`Error status code ${response.status()}`);
+                log.info(`Skipping ${request.url} (${response.status()} status code)`);
+                return;
+            }
 
             // Wait for body tag to load
             await page.waitForSelector('body', {
