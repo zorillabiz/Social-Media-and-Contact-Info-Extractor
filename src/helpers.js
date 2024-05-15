@@ -18,7 +18,9 @@ async function extractUrlsFromPage(page, selector, sameDomain, urlDomain) {
         })
         .map((link) => link.href), { url: page.url(), regex: regexString });
 
-    const filteredLinks = allLinks.filter((url) => (sameDomain ? module.exports.getDomain(url) === urlDomain : true));
+    const filteredLinks = allLinks.filter((url) => {
+        return sameDomain ? module.exports.getDomain(url) === urlDomain || module.exports.getDomain(url) === module.exports.getDomain(page.url()) : true;
+    });
     log.info(`Found ${filteredLinks.length} links on ${page.url()}`);
     if (filteredLinks.length > 0) {
         log.info(filteredLinks);
