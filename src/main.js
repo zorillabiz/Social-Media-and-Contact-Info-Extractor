@@ -21,6 +21,7 @@ Apify.main(async () => {
         handlePageTimeoutSecs,
         navigationTimeoutSecs,
     } = input;
+    maxDepth = 0;
 
     // Object with startUrls as keys and counters as values
     const requestsPerStartUrlCounter = (await Apify.getValue('STATE-REQUESTS-PER-START-URL')) || {};
