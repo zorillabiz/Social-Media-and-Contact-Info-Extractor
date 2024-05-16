@@ -12,7 +12,6 @@ Apify.main(async () => {
         startUrls,
         proxyConfig,
         sameDomain,
-        maxDepth,
         considerChildFrames,
         // These are total (kept naming for backward compatibillity)
         maxRequests,
@@ -21,7 +20,7 @@ Apify.main(async () => {
         handlePageTimeoutSecs,
         navigationTimeoutSecs,
     } = input;
-    maxDepth = 0;
+    const maxDepth = 0;
 
     // Object with startUrls as keys and counters as values
     const requestsPerStartUrlCounter = (await Apify.getValue('STATE-REQUESTS-PER-START-URL')) || {};
