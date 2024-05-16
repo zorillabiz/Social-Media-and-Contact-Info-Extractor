@@ -12,6 +12,7 @@ Apify.main(async () => {
         startUrls,
         proxyConfig,
         sameDomain,
+        maxDepth,
         considerChildFrames,
         // These are total (kept naming for backward compatibillity)
         maxRequests,
@@ -20,7 +21,6 @@ Apify.main(async () => {
         handlePageTimeoutSecs,
         navigationTimeoutSecs,
     } = input;
-    const maxDepth = 0;
 
     // Object with startUrls as keys and counters as values
     const requestsPerStartUrlCounter = (await Apify.getValue('STATE-REQUESTS-PER-START-URL')) || {};
@@ -116,7 +116,7 @@ Apify.main(async () => {
             };
 
             // Enqueue all links on the page
-            if (typeof maxDepth !== 'number' || request.userData.depth < maxDepth) {
+            if (typeof maxDepth !== 'number' || request.userData.depth < 0) {
                 await helpers.enqueueUrls(linksToEnqueueOptions);
             }
 
