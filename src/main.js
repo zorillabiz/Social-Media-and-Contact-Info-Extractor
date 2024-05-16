@@ -116,7 +116,7 @@ Apify.main(async () => {
             };
 
             // Enqueue all links on the page
-            if (typeof maxDepth !== 'number' || request.userData.depth < 0) {
+            if (typeof maxDepth !== 'number' || request.userData.depth < maxDepth) {
                 await helpers.enqueueUrls(linksToEnqueueOptions);
             }
 
