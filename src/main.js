@@ -156,9 +156,6 @@ Apify.main(async () => {
             log.error(`Request ${request.url} failed 2 times`);
         },
         preNavigationHooks: [
-            async ({ request }) => {
-                console.log(`Pre-navigation hook of ${request.url}`);
-            },
             async ({ page }) => {
                 await Apify.utils.puppeteer.blockRequests(page);
             },
