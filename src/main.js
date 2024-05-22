@@ -169,7 +169,7 @@ Apify.main(async () => {
 
     // Limit retries
     //if (maxRetries) crawlerOptions.maxRequestRetries = maxRetries;
-    crawlerOptions.maxRequestRetries = 0;
+    crawlerOptions.maxRequestRetries = 1;
 
     // Create crawler
     const crawler = new Apify.PuppeteerCrawler(crawlerOptions);
