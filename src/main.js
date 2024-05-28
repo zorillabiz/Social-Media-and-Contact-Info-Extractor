@@ -96,7 +96,7 @@ Apify.main(async () => {
                 return;
             }
 
-            if (await page.$('.--dan-powered, .buynow-lander, .logo[href="http://beget.com"]')) {
+            if (await page.$('.--dan-powered, .buynow-lander, .logo[href*="beget.com"]')) {
                 log.info(`Skipping ${request.url} (content blacklisted)`);
                 return;
             }
