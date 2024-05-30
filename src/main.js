@@ -47,7 +47,7 @@ Apify.main(async () => {
             referrer: null,
             startUrl: req.url,
         };
-        console.log(req.userData);
+        //console.log(req.userData);
         req.userData = { ...req.userData, ...moreData };
         if (maxRequestsPerStartUrl) {
             if (!requestsPerStartUrlCounter[req.url]) {
