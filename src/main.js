@@ -90,13 +90,14 @@ Apify.main(async () => {
                 return;
             }
 
-            const blacklist = ['dan.com', 'afternic.com', 'godaddy.com', 'sedo.com', 'buydomains.com', 'hugedomains.com', 'dovendi.com', 'aftermarket.pl', 'sawbrokers.com'];
+            const blacklist = ['dan.com', 'afternic.com', 'godaddy.com', 'sedo.com', 'buydomains.com', 'hugedomains.com', 'dovendi.com', 'aftermarket.pl', 'sawbrokers.com', 'top-domains.ch'];
             if (blacklist.includes(helpers.getDomain(page.url()))) {
                 log.info(`Skipping ${request.url} (domain blacklisted)`);
                 return;
             }
 
-            if (await page.$('.--dan-powered, .buynow-lander, .logo[href*="beget.com"]')) {
+            // ovo treba izbeci
+            if (await page.$('.--dan-powered, .buynow-lander')) {
                 log.info(`Skipping ${request.url} (content blacklisted)`);
                 return;
             }
@@ -127,16 +128,18 @@ Apify.main(async () => {
             }
 
             // Generate result
-            const { userData: { depth, referrer } } = request;
+            const { userData: { depth, referrer, source, term } } = request;
             const url = page.url();
             const html = await page.content();
 
             const result = {
                 html,
-                depth,
-                referrerUrl: referrer,
                 url,
-                domain: helpers.getDomain(url)
+                domain: helpers.getDomain(url),
+                referrerUrl: referrer,
+                depth,
+                source,
+                term,
             };
 
             // Extract and save handles, emails, phone numbers
