@@ -98,12 +98,6 @@ Apify.main(async () => {
                 return;
             }
 
-            // ovo treba izbeci
-            if (await page.$('.buynow-lander')) {
-                log.info(`Skipping ${request.url} (content blacklisted)`);
-                return;
-            }
-
             // Set enqueue options
             const linksToEnqueueOptions = {
                 page,
