@@ -99,7 +99,7 @@ Apify.main(async () => {
             }
 
             // ovo treba izbeci
-            if (await page.$('.--dan-powered, .buynow-lander')) {
+            if (await page.$('.buynow-lander')) {
                 log.info(`Skipping ${request.url} (content blacklisted)`);
                 return;
             }
@@ -130,7 +130,7 @@ Apify.main(async () => {
             }
 
             // Generate result
-            const { userData: { depth, referrer, source, term } } = request;
+            const { userData: { depth, referrer } } = request;
             const url = page.url();
             const html = await page.content();
 
@@ -140,8 +140,6 @@ Apify.main(async () => {
                 domain: helpers.getDomain(url),
                 referrerUrl: referrer,
                 depth,
-                source,
-                term,
             };
 
             // Extract and save handles, emails, phone numbers
