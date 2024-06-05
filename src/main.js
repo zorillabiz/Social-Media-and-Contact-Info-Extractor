@@ -32,7 +32,6 @@ Apify.main(async () => {
         setInterval(persistRequestsPerStartUrlCounter, 60000);
         Apify.events.on('migrating', persistRequestsPerStartUrlCounter);
     }
-    console.log(startUrls);
     // porcessing input URLs in case of requestsFromUrl (urls from txt file)
     const processedStartUrls = [];
     for await (const req of fromStartUrls(startUrls)) {
