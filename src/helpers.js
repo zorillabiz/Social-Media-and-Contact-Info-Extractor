@@ -92,7 +92,6 @@ async function* fromStartUrls(startUrls, name = 'STARTURLS') {
     let rq;
     // eslint-disable-next-line no-cond-assign
     while ((rq = await rl.fetchNextRequest())) {
-        console.log(rq);
         yield rq;
     }
 }
