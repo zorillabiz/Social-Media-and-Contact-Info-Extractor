@@ -38,7 +38,6 @@ Apify.main(async () => {
     for await (const req of fromStartUrls(startUrls)) {
         processedStartUrls.push(req);
     }
-    console.log(`Status: ${payload.resource.status}`);
 
     const requestQueue = await Apify.openRequestQueue();
     const requestList = await Apify.openRequestList('start-urls', normalizeUrls(processedStartUrls));
@@ -135,6 +134,14 @@ Apify.main(async () => {
                 referrerUrl: referrer,
                 depth,
             };
+
+            if (payload) {
+                const store = await Apify.openKeyValueStore(payload.resource.defaultKeyValueStoreId);
+                const value = await store.getValue('source');
+                Object.assign(result, {
+                    'source': value.source,
+                });
+            }
 
             // Extract and save handles, emails, phone numbers
             const socialHandles = Apify.utils.social.parseHandlesFromHtml(html);
