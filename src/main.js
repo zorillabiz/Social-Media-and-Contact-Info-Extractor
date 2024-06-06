@@ -20,6 +20,7 @@ Apify.main(async () => {
         maxRetries,
         handlePageTimeoutSecs,
         navigationTimeoutSecs,
+        payload,
     } = input;
 
     // Object with startUrls as keys and counters as values
@@ -37,7 +38,7 @@ Apify.main(async () => {
     for await (const req of fromStartUrls(startUrls)) {
         processedStartUrls.push(req);
     }
-    console.log("Status: {{resource.status}}");
+    console.log(`Status: ${payload.resource.status}`);
 
     const requestQueue = await Apify.openRequestQueue();
     const requestList = await Apify.openRequestList('start-urls', normalizeUrls(processedStartUrls));
