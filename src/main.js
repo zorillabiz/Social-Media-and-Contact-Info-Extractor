@@ -137,6 +137,7 @@ Apify.main(async () => {
 
             if (payload) {
                 const store = await Apify.openKeyValueStore(payload.resource.defaultKeyValueStoreId);
+                console.log(await store.getValue());
                 const { source, term, domain } = await store.getValue('source');
 
                 Object.assign(result, {
