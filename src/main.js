@@ -24,8 +24,8 @@ Apify.main(async () => {
     } = input;
 
     if (payload) {
-        const store = await Apify.openKeyValueStore(payload.resource.defaultKeyValueStoreId);
-        console.log('Test: ' + await store.getValue());
+        const dataset = await Apify.openDataset(payload.resource.defaultDatasetId);
+        console.log('Test: ' + await dataset.getData());
     }
 
     // Object with startUrls as keys and counters as values
