@@ -23,6 +23,11 @@ Apify.main(async () => {
         payload,
     } = input;
 
+    if (payload) {
+        const store = await Apify.openKeyValueStore(payload.resource.defaultKeyValueStoreId);
+        console.log('Test: ' + await store.getValue());
+    }
+
     // Object with startUrls as keys and counters as values
     const requestsPerStartUrlCounter = (await Apify.getValue('STATE-REQUESTS-PER-START-URL')) || {};
 
@@ -137,7 +142,6 @@ Apify.main(async () => {
 
             if (payload) {
                 const store = await Apify.openKeyValueStore(payload.resource.defaultKeyValueStoreId);
-                console.log('Test: ' + await store.getValue());
                 const { source, term, domain } = await store.getValue('source');
 
                 Object.assign(result, {
