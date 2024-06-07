@@ -187,11 +187,11 @@ module.exports = {
         const PROTOCOL_REGEX = /^((.)+:\/\/)/;
         const BASE_URL_PATTERN = 'http://example.com';
 
-        return urls.map(({ url }) => {
+        return urls.map(({ url, userData }) => {
             const urlWithoutProtocol = url.replace(PROTOCOL_REGEX, '');
             const relativeUrl = `//${urlWithoutProtocol}`;
             const normalizedUrl = new URL(relativeUrl, BASE_URL_PATTERN);
-            return normalizedUrl.toString();
+            return { url: normalizedUrl.toString(), userData };
         });
     },
     fromStartUrls,
