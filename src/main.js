@@ -46,12 +46,12 @@ Apify.main(async () => {
     for await (const req of fromStartUrls(startUrls)) {
         processedStartUrls.push(req);
     }
+    console.log(processedStartUrls);
 
     const requestQueue = await Apify.openRequestQueue();
     const requestList = await Apify.openRequestList('start-urls', normalizeUrls(processedStartUrls));
 
     requestList.requests.forEach((req) => {
-        console.log(req.userData);
         req.userData = {
             depth: 0,
             referrer: null,
