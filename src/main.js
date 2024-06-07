@@ -56,7 +56,7 @@ Apify.main(async () => {
             referrer: null,
             startUrl: req.url,
         });
-        console.log(req.userData);
+        //console.log(req.userData);
         if (maxRequestsPerStartUrl) {
             if (!requestsPerStartUrlCounter[req.url]) {
                 requestsPerStartUrlCounter[req.url] = {
@@ -114,7 +114,7 @@ Apify.main(async () => {
                 sameDomain,
                 urlDomain: helpers.getDomain(request.url),
                 startUrl: request.userData.startUrl,
-                depth: request.userData.depth,
+                userData: request.userData,
                 // These options makes the enqueueUrls call stateful. It would be better to refactor this.
                 maxRequestsPerStartUrl,
                 requestsPerStartUrlCounter,
