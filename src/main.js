@@ -25,14 +25,17 @@ Apify.main(async () => {
 
     if (payload) {
         const dataset = await Apify.openDataset(payload.resource.defaultDatasetId);
-        await dataset.forEach(async (item, index) => {
-            console.log(`Item at ${index}: ${JSON.stringify(item)}`);
+        const data = await dataset.getData().items;
+        console.log(`${JSON.stringify(data)}`);
+        startUrls = [];
+        await dataset.forEach(async (item) => {
+            //startUrls.push(item);
+            //console.log(`Item at ${index}: ${JSON.stringify(item)}`);
         });
     }
 
     // Object with startUrls as keys and counters as values
     const requestsPerStartUrlCounter = (await Apify.getValue('STATE-REQUESTS-PER-START-URL')) || {};
-
     if (maxRequestsPerStartUrl) {
         const persistRequestsPerStartUrlCounter = async () => {
             await Apify.setValue('STATE-REQUESTS-PER-START-URL', requestsPerStartUrlCounter);
@@ -40,6 +43,7 @@ Apify.main(async () => {
         setInterval(persistRequestsPerStartUrlCounter, 60000);
         Apify.events.on('migrating', persistRequestsPerStartUrlCounter);
     }
+
     // porcessing input URLs in case of requestsFromUrl (urls from txt file)
     const processedStartUrls = [];
     for await (const req of fromStartUrls(startUrls)) {
