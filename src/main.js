@@ -46,7 +46,7 @@ Apify.main(async () => {
     for await (const req of fromStartUrls(startUrls)) {
         processedStartUrls.push(req);
     }
-    console.log(processedStartUrls);
+    console.log(normalizeUrls(processedStartUrls));
 
     const requestQueue = await Apify.openRequestQueue();
     const requestList = await Apify.openRequestList('start-urls', normalizeUrls(processedStartUrls));
