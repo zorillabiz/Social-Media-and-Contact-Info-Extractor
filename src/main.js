@@ -9,6 +9,7 @@ Apify.main(async () => {
     if (!input) throw new Error('There is no input!');
 
     const {
+        startUrls,
         proxyConfig,
         sameDomain,
         maxDepth,
@@ -33,12 +34,13 @@ Apify.main(async () => {
     }
 
     if (payload) {
-        const payloadDataset = await Apify.openDataset(payload.resource.defaultDatasetId);
-        const payloadData = await payloadDataset.getData();
+        const dataset = await Apify.openDataset(payload.resource.defaultDatasetId);
+        //const dataz = await dataset.getData();
         //console.log(`${JSON.stringify(dataz.items)}`);
-        const startUrls = payloadData.items;
-    } else {
-        const startUrls = input.startUrls;
+        startUrls.length = 0;
+        await dataset.forEach(async (item) => {
+            startUrls.push(item);
+        });
     }
 
     // processing input URLs in case of requestsFromUrl (urls from txt file)
