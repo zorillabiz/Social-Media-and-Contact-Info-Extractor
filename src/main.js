@@ -34,10 +34,8 @@ Apify.main(async () => {
     }
 
     if (payload) {
-        const dataset = await Apify.openDataset(payload.resource.defaultDatasetId);
-        //const dataz = await dataset.getData();
-        //console.log(`${JSON.stringify(dataz.items)}`);
         startUrls.length = 0;
+        const dataset = await Apify.openDataset(payload.resource.defaultDatasetId);
         await dataset.forEach(async (item) => {
             startUrls.push(item);
         });
@@ -53,6 +51,7 @@ Apify.main(async () => {
     const requestList = await Apify.openRequestList('start-urls', normalizeUrls(processedStartUrls));
 
     requestList.requests.forEach((req) => {
+        console.log(req.userData);
         req.userData = {
             depth: 0,
             referrer: null,
@@ -185,8 +184,7 @@ Apify.main(async () => {
     if (maxRequests) crawlerOptions.maxRequestsPerCrawl = maxRequests;
 
     // Limit retries
-    //if (maxRetries) crawlerOptions.maxRequestRetries = maxRetries;
-    crawlerOptions.maxRequestRetries = 0;
+    if (maxRetries) crawlerOptions.maxRequestRetries = maxRetries;
 
     // Create crawler
     const crawler = new Apify.PuppeteerCrawler(crawlerOptions);
