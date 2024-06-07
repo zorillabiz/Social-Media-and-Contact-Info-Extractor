@@ -25,7 +25,9 @@ Apify.main(async () => {
 
     if (payload) {
         const dataset = await Apify.openDataset(payload.resource.defaultDatasetId);
-        console.log('Test: ' + await dataset.getData());
+        await dataset.forEach(async (item, index) {
+            console.log(`Item at ${index}: ${JSON.stringify(item)}`);
+        });
     }
 
     // Object with startUrls as keys and counters as values
