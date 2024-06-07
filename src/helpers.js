@@ -169,7 +169,7 @@ module.exports = {
             selector = 'a',
             sameDomain,
             urlDomain,
-            depth,
+            userData,
             startUrl,
             maxRequestsPerStartUrl,
             requestsPerStartUrlCounter,
@@ -177,7 +177,9 @@ module.exports = {
 
         const urls = await extractUrlsFromPage(page, selector, sameDomain, urlDomain);
 
-        const requestOptions = createRequestOptions(urls, { depth: depth + 1 });
+        userData.depth += 1;
+        console.log(userData);
+        const requestOptions = createRequestOptions(urls, userData);
 
         const requests = createRequests(requestOptions);
         await addRequestsToQueue({ requests, requestQueue, startUrl, maxRequestsPerStartUrl, requestsPerStartUrlCounter });
