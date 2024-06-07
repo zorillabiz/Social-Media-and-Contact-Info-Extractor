@@ -27,7 +27,7 @@ Apify.main(async () => {
         const dataset = await Apify.openDataset(payload.resource.defaultDatasetId);
         const dataz = await dataset.getData().items;
         console.log(`${JSON.stringify(dataz)}`);
-        startUrls = [];
+        //startUrls = [];
         await dataset.forEach(async (item) => {
             //startUrls.push(item);
             //console.log(`Item at ${index}: ${JSON.stringify(item)}`);
