@@ -9,7 +9,6 @@ Apify.main(async () => {
     if (!input) throw new Error('There is no input!');
 
     const {
-        startUrls,
         proxyConfig,
         sameDomain,
         maxDepth,
@@ -23,17 +22,6 @@ Apify.main(async () => {
         payload,
     } = input;
 
-    if (payload) {
-        const dataset = await Apify.openDataset(payload.resource.defaultDatasetId);
-        const dataz = await dataset.getData();
-        console.log(`${JSON.stringify(dataz.items)}`);
-        //startUrls = [];
-        await dataset.forEach(async (item) => {
-            //startUrls.push(item);
-            //console.log(`Item at ${index}: ${JSON.stringify(item)}`);
-        });
-    }
-
     // Object with startUrls as keys and counters as values
     const requestsPerStartUrlCounter = (await Apify.getValue('STATE-REQUESTS-PER-START-URL')) || {};
     if (maxRequestsPerStartUrl) {
@@ -44,7 +32,16 @@ Apify.main(async () => {
         Apify.events.on('migrating', persistRequestsPerStartUrlCounter);
     }
 
-    // porcessing input URLs in case of requestsFromUrl (urls from txt file)
+    if (payload) {
+        const payloadDataset = await Apify.openDataset(payload.resource.defaultDatasetId);
+        const payloadData = await payloadDataset.getData();
+        //console.log(`${JSON.stringify(dataz.items)}`);
+        const startUrls = payloadData.items;
+    } else {
+        const startUrls = input.startUrls;
+    }
+
+    // processing input URLs in case of requestsFromUrl (urls from txt file)
     const processedStartUrls = [];
     for await (const req of fromStartUrls(startUrls)) {
         processedStartUrls.push(req);
