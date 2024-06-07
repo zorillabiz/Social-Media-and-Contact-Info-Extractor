@@ -132,7 +132,7 @@ Apify.main(async () => {
             }
 
             // Generate result
-            const { userData: { depth, referrer } } = request;
+            //const { userData: { depth, referrer } } = request;
             const url = page.url();
             const html = await page.content();
 
@@ -140,20 +140,9 @@ Apify.main(async () => {
                 html,
                 url,
                 domain: helpers.getDomain(url),
-                referrerUrl: referrer,
-                depth,
             };
 
-            if (payload) {
-                const store = await Apify.openKeyValueStore(payload.resource.defaultKeyValueStoreId);
-                const { source, term, domain } = await store.getValue('source');
-
-                Object.assign(result, {
-                    source,
-                    term,
-                    domain,
-                });
-            }
+            Object.assign(result, request.userData);
 
             // Extract and save handles, emails, phone numbers
             const socialHandles = Apify.utils.social.parseHandlesFromHtml(html);
