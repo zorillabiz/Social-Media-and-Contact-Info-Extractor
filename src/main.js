@@ -52,11 +52,12 @@ Apify.main(async () => {
     const requestList = await Apify.openRequestList('start-urls', normalizeUrls(processedStartUrls));
 
     requestList.requests.forEach((req) => {
-        req.userData = {
+        Object.assign(req.userData, {
             depth: 0,
             referrer: null,
             startUrl: req.url,
-        };
+        });
+        console.log(req.userData);
         if (maxRequestsPerStartUrl) {
             if (!requestsPerStartUrlCounter[req.url]) {
                 requestsPerStartUrlCounter[req.url] = {
