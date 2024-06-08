@@ -41,7 +41,10 @@ function createRequestOptions(sources, userData = {}) {
         .filter(({ url }) => !url.match(/\.(jp(e)?g|bmp|png|mp3|m4a|mkv|avi)$/gi))
         .map((rqOpts) => {
             const rqOptsWithData = rqOpts;
-            rqOptsWithData.userData = { ...rqOpts.userData, ...userData };
+            const localData = {
+                requestUrl: rqOpts.url,
+            }
+            rqOptsWithData.userData = { ...rqOpts.userData, ...userData, ...localData };
             return rqOptsWithData;
         });
 }
@@ -178,7 +181,6 @@ module.exports = {
         const urls = await extractUrlsFromPage(page, selector, sameDomain, urlDomain);
 
         userData.depth += 1;
-        console.log(userData);
         const requestOptions = createRequestOptions(urls, userData);
 
         const requests = createRequests(requestOptions);
