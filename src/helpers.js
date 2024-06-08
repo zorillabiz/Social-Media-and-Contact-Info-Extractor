@@ -41,10 +41,7 @@ function createRequestOptions(sources, userData = {}) {
         .filter(({ url }) => !url.match(/\.(jp(e)?g|bmp|png|mp3|m4a|mkv|avi)$/gi))
         .map((rqOpts) => {
             const rqOptsWithData = rqOpts;
-            const localData = {
-                requestUrl: rqOpts.url,
-            }
-            rqOptsWithData.userData = { ...rqOpts.userData, ...userData, ...localData };
+            rqOptsWithData.userData = { ...rqOpts.userData, ...userData };
             return rqOptsWithData;
         });
 }
