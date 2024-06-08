@@ -55,6 +55,7 @@ Apify.main(async () => {
             depth: 0,
             referrer: null,
             startUrl: req.url,
+            requestUrl: req.url,
         });
         //console.log(req.userData);
         if (maxRequestsPerStartUrl) {
