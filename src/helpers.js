@@ -38,7 +38,7 @@ function createRequestOptions(sources, userData = {}) {
                 return false;
             }
         })
-        .filter(({ url }) => !url.match(/\.(jp(e)?g|bmp|png|mp3|m4a|mkv|avi)$/gi))
+        .filter(({ url }) => !url.match(/\.(jp(e)?g|bmp|png|mp3|m4a|mkv|avi|pdf|zip|rar)$/gi))
         .map((rqOpts) => {
             const rqOptsWithData = rqOpts;
             rqOptsWithData.userData = { ...rqOpts.userData, ...userData };
