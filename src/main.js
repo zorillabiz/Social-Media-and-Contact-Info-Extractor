@@ -100,7 +100,7 @@ Apify.main(async () => {
                 return;
             }
 
-            const blacklist = ['dan.com', 'afternic.com', 'godaddy.com', 'sedo.com', 'aftermarket.pl', 'buydomains.com', 'dovendi.com', 'hugedomains.com', 'nidoma.com', 'reg.ru', 'sawbrokers.com', 'timeweb.ru', 'top-domains.ch'];
+            const blacklist = ['dan.com', 'afternic.com', 'godaddy.com', 'sedo.com', 'aftermarket.pl', 'buydomains.com', 'dovendi.com', 'hugedomains.com', 'mooiedomeinnaam.nl', 'nidoma.com', 'reg.ru', 'sawbrokers.com', 'timeweb.ru', 'top-domains.ch'];
             if (blacklist.includes(helpers.getDomain(page.url()))) {
                 log.info(`Skipping ${request.url} (domain blacklisted)`);
                 return;
